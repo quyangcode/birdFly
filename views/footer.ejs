@@ -1,0 +1,19 @@
+
+<hr />
+      <footer>
+        <p><a href="weibo.com/makebug/profile?rightmod=1&wvr=5&mod=personinfo/" target="_blank">quyangcode</a> 2013 </p>
+      </footer>
+    </div>
+  </body>
+  <script>
+    (function(){
+         var title = $("#typeNameSpanId").text();
+         var lis = $(".nav").find("li");
+         $.each(lis,function(i,d){
+            if($(d).text() == title){
+                $(d).addClass("active");
+            }
+         });
+    })();
+  </script>
+</html>

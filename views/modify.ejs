@@ -1,0 +1,46 @@
+<% include header.ejs %>
+<div class="container-fluid">
+    <form class="form-horizontal" method="post">
+        <fieldset>
+            <legend>修改个人信息</legend>
+            <% if (error) { %>
+            	<div class="alert alert-error"><%= error %></div>
+            <% } %>
+            <% if (success) { %>
+                <div class="alert alert-success"><%= success %></div>
+            <% } %>
+            <div class="control-group">
+                <label class="control-label" for="username">用户名</label>
+                <div class="controls">
+                    <input type="text" class="input-xlarge" disabled id="username" name="name" value="<%= user.name %>">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="email">邮箱</label>
+                <div class="controls">
+                    <input type="text" class="input-xlarge" disabled id="email" name="email" value="<%= user.email %>">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="location">地区</label>
+                <div class="controls">
+                    <input type="text" class="input-xlarge" id="location" name="location"
+                    <% if(user.location){ %>
+                           value="<%= user.location %>"
+                    <% } %>
+                    >
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="introduction">简介</label>
+                <div class="controls">
+                    <textarea rows="4" style="width:270px;"  id="introduction" name="introduction" ><% if(user.introduction){ %> <%= user.introduction %> <% }else{ %>暂无简介，补充简介，让大家认识你吧...<% } %></textarea>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">确认修改</button>
+            </div>
+        </fieldset>
+    </form>
+</div>
+<% include footer.ejs %>

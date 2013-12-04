@@ -1,0 +1,17 @@
+<%- include header.ejs %>
+
+<% messList.forEach(function(mess,index){ %>
+    <div class="media" name="<%= mess.toName %>">
+        <div class="pull-left">
+            <img class="media-object portrait" src="<%= user.portraitSrc %>" >
+        </div>
+      <div class="media-body">
+        <h4 class="media-heading"><%= mess.toName %></h4>
+        <p><%= mess.data %></p>
+      </div>
+    </div>
+<%}) %>
+
+    <script src="/javascripts/messList.js"></script>
+    <script src="/javascripts/common.js"></script>
+<%- include footer.ejs %>

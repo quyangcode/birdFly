@@ -1,0 +1,62 @@
+<%- include header.ejs %>
+    <% users.valueList.forEach(function (u, index) { %>
+          <%if (index % 3 == 0) { %>
+              <div class="row">
+          <%} %>
+          <div class="span3 well" >
+                    <div class="pull-left">
+                        <img src="<%= u.portraitSrc %>" class="img-thumbnail portrait">
+                    </div>
+                        <span class="label label-success"><%= u.name %></span></br> </br>
+                        <p>
+                            <% if(u.introduction){ %>
+                                    <%= u.introduction %>
+                            <% }else{ %>
+                                    暂时没有简介...
+                            <% } %>
+                        </p>
+                        <% if(user.name != u.name){ %>
+                                <% if(u.isFriend){ %>
+                                    <button type="button" class="btn btn-warning btn-small unFollow" data-name="<%= u.name %>">取消关注</button>
+
+                                <% }else{ %>
+                                    <button type="button" class="btn  btn-small follow" data-name="<%= u.name %>">关注</button>
+                                <% } %>
+                                <a href="/message?toName=<%= u.name %>">私信</a>
+                        <% } %>
+            </div>
+          <% if (index % 3 == 2 ) { %>
+              </div>
+          <% } %>
+    <% }) %>
+    <% if (users.valueList.length % 3 != 0) { %>
+         </div>
+    <% } %>
+    <div style="text-align:right" index="<%= users.getIndex() %>" data-src="/find?page=" id="pageDiv">
+        <% if(users.isFirst()){ %>
+            <button class="btn disabled">上一页</button>
+        <% }else{ %>
+            <button class="btn" id="previousBtn">上一页</button>
+        <% } %>
+        <div class="btn-group dropup">
+          <% if(users.getTotalPage() == 1){ %>
+             <button type="button" class="btn btn-default dropdown-toggle disabled" data-toggle="dropdown">
+                      第<%= users.getIndex() %>页 <span class="caret"></span>
+             </button>
+          <% }else{ %>
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                      第<%= users.getIndex() %>页 <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu" id="pageList" size="<%= users.getTotalPage()%>" ></ul>
+          <% }%>
+
+        </div>
+        <% if(users.isEnd()){ %>
+           <button class="btn disabled">下一页</button>
+        <% }else{ %>
+           <button class="btn" id="nextBtn">下一页</button>
+        <% } %>
+    </div>
+    <script src="/javascripts/find.js"></script>
+    <script src="/javascripts/common.js"></script>
+<%- include footer.ejs %>

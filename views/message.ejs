@@ -1,0 +1,41 @@
+<%- include header.ejs %>
+<div class="well form-inline text-left" >
+  <div>与<span id="mesToName" class="text text-success text-large text-left"><%= toName %></span>的私信</div>
+  <textarea rows="2" style="width:720px;" id="mesArea" name="post" style="font-size: 20px;"></textarea>
+  <div class="text-right">
+  <button type="submit" id="mesBtn" class="btn btn-success">发私信</button>
+  </div>
+</div>
+    <div id="mesDiv">
+        <% messages.forEach(function(message,index){
+            if(message.name == user.name){ %>
+                <div class="panel">
+                    <h5><a href="post/user/'<%= message.name %>"><%= message.name %></a> 说:</h5>
+                </div>
+                <div class="media" style="width: 600px">
+                    <a class="pull-left">
+                        <img class="media-object portrait" src="/images/defaultSrc.jpg">
+                    </a>
+                   <div class="media-body">
+                        <div class="well"><p> <%= message.data %> </p></div>
+                   </div>
+                </div>
+            <% }else{ %>
+                <div class="panel text-right">
+                      <h5><a href="post/user/'<%= message.name %>"><%= message.name %></a> 说:</h5>
+                </div>
+                <div class="media" style="width: 600px;margin-left:360px">
+                      <a class="pull-right">
+                         <img class="media-object portrait" src="/images/defaultSrc.jpg">
+                      </a>
+                      <div class="media-body">
+                        <div class="well text-right"><p> <%= message.data %> </p></div>
+                      </div>
+                </div>
+
+         <% } }) %>
+    </div>
+
+    <script src="/javascripts/message.js"></script>
+    <script src="/javascripts/common.js"></script>
+<%- include footer.ejs %>

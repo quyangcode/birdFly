@@ -1,0 +1,55 @@
+<%- include header.ejs %>
+<form method="post" action="/post" class="well form-inline text-left" >
+  <div class="text text-success text-large text-left">有什么想告诉大家:</div>
+  <div class="text-right"><span id="inform">还可以输入</span><span id="postNum" class="postNum">4</span>个字</div>
+  <textarea rows="3" style="width:720px;" id="postArea" name="post" style="font-size: 20px;"></textarea>
+  <div class="text-right">
+  <button type="submit" class="btn btn-success">发言</button>
+  <button type="button" class="btn btn-info">上传</button>
+  </div>
+</form>
+    <% posts.valueList.forEach(function (post, index) { %>
+        <div class="panel"><h5><a href="post/user/<%= user.name%>"><%= post.name %></a> 说:</h5></div>
+        <div class="media">
+            <a class="pull-left"><img class="media-object portrait" src="<%= user.portraitSrc %>"></a>
+            <div class="media-body">
+                <div class="well">
+                     <p><%- post.post %></p>
+                     <small><%= post.time.format("yyyy-MM-dd hh:mm") %></small>
+                     <div class="text-right">
+                           <a href="post/<%- post._id %>">转发</a>
+                           <a href="post/<%- post._id %>">评论</a>
+                     </div>
+                </div>
+            </div>
+        </div>
+    <% }) %>
+    <div style="text-align:right" index="<%= posts.getIndex() %>" data-src="/post?page=" id="pageDiv">
+        <% if(posts.isFirst()){ %>
+            <button class="btn disabled">上一页</button>
+        <% }else{ %>
+            <button class="btn" id="previousBtn">上一页</button>
+        <% } %>
+        <div class="btn-group dropup">
+          <% if(posts.getTotalPage() == 1){ %>
+             <button type="button" class="btn btn-default dropdown-toggle disabled" data-toggle="dropdown">
+                      第<%= posts.getIndex() %>页 <span class="caret"></span>
+             </button>
+          <% }else{ %>
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                      第<%= posts.getIndex() %>页 <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu" id="pageList" size="<%= posts.getTotalPage()%>" ></ul>
+          <% }%>
+
+        </div>
+        <% if(posts.isEnd()){ %>
+           <button class="btn disabled">下一页</button>
+        <% }else{ %>
+           <button class="btn" id="nextBtn">下一页</button>
+        <% } %>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/javascripts/post.js"></script>
+    <script src="/javascripts/common.js"></script>
+<%- include footer.ejs %>

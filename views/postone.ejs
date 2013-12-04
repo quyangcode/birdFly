@@ -1,0 +1,35 @@
+<%- include header.ejs %>
+    <% if(post){ %>
+          <div class="well">
+              <div class="panel panel-info" >
+                   <div class="panel-heading"><h3><a href="#"><%= post.name %></a> 说:</h3></div>
+                   <div class="panel-body">
+                          <p class="font20"><%- post.post %></p>
+                          <small><%= post.time.format("yyyy-MM-dd hh:mm") %></small>
+                   </div>
+              </div>
+              <form method="post" action="/comment">
+                  <input type="hidden" name="postId" value="<%- post._id %>">
+                  <input type="text" class="span10" name="comment"></br>
+                  <div style="text-align:right">
+                       <button type="submit" class="btn btn-success">评论</button>
+                  </div>
+              </form>
+          </div>
+      <div class="divH45">
+          <span class="label label-success">所有评论</span>&nbsp;&nbsp;
+          <span >好友</span>&nbsp;&nbsp;
+          <span >陌生人</span>
+      </div>
+          <ul class="unstyled">
+          <% post.comments.forEach(function (comment, index) { %>
+                <li class="li45">
+                    <a href="#"><%= comment.name %>:</a>
+                    <%= comment.comment %>&nbsp;&nbsp;(<%= comment.time.format("MM-dd hh:mm") %>)&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" >回复</a>
+                </li>
+          <% }) %>
+          </ul>
+    <% }else{ %>
+        该微博因为各种原因已经被删除，别问我是管理员删的还是博主自己删的，好吗？
+    <% } %>
+<%- include footer.ejs %>
