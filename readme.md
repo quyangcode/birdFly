@@ -1,2 +1,2 @@
-Express + ejs + socket.io 
+Express + ejs + mongodb + socket.io 
 微博系统
