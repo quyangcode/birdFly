@@ -1,88 +1,90 @@
 <%- include header.ejs %>
-    <div class="media">
-        <div class="pull-left">
-            <img algin="left" src="<%= user.portraitSrc %>" class="img-thumbnail">
-        </div>
-        <div class="media-body">
-            <span class="label"><%= user.name %></span></br> </br>
-            <p>
-                        <% if(user.introduction){ %>
-                            <%= user.introduction %>
-                        <% }else{ %>
-                            暂时没有简介...
-                        <% } %>
-            </p>
-            <span class="label">
-                        <% if(user.location){ %>
-                            <%= user.location %>
-                        <% }else{ %>
-                            地球人
-                        <% } %>
-            </span></br> </br>
-            <button class="btn btn-info" id="modifyBtn">编辑个人资料</button>
-        </div>
-        </br>
-        <table class="table table-bordered" style="width:220px">
-                <tr>
-                    <td>关注</td>
-                    <td>粉丝</td>
-                    <td>微博</td>
-                </tr>
-                <tr>
-                    <td><%= user.friends.length %></td>
-                    <td><%= user.fans.length %></td>
-                    <td><%= posts.totalItem %></td>
-                </tr>
-        </table>
+<div class="media">
+    <div class="pull-left">
+        <img algin="left" src="<%= user.portraitSrc %>" class="img-thumbnail">
     </div>
+    <div class="media-body">
+        <span class="label"><%= user.name %></span></br> </br>
+        <p>
+            <% if(user.introduction){ %>
+            <%= user.introduction %>
+            <% }else{ %>
+            暂时没有简介...
+            <% } %>
+        </p>
+            <span class="label">
+                <% if(user.location){ %>
+                <%= user.location %>
+                <% }else{ %>
+                地球人
+                <% } %>
+            </span></br> </br>
+        <button class="btn btn-info" id="modifyBtn">编辑个人资料</button>
+    </div>
+    </br>
+    <table class="table table-bordered" style="width:220px">
+        <tr>
+            <td>关注</td>
+            <td>粉丝</td>
+            <td>微博</td>
+        </tr>
+        <tr>
+            <td><%= user.friends.length %></td>
+            <td><%= user.fans.length %></td>
+            <td><%= posts.totalItem %></td>
+        </tr>
+    </table>
+</div>
 
 <div class="clearfix"></div>
 <div class="alert alert-error" style="display:none" id="deleteError"></div>
 <div class="list-group">
     <% posts.valueList.forEach(function (post, index) { %>
-              <div class="panel"><h5><a href="javascript:void(0)"><%= post.name %></a> 说:</h5></div>
-              <div class="media">
-                  <a class="pull-left"><img class="media-object portrait" src="<%= user.portraitSrc %>"></a>
-                  <div class="media-body">
-                      <div class="well">
-                           <p><%- post.post %></p>
-                           <small><%= post.time.format("yyyy-MM-dd hh:mm") %></small>
-                           <div style="text-align:right">
-                                 <button type="button" class="btn btn-danger btn-small" onclick="deletePost('<%= post._id %>')" >删除</button>
-                           </div>
-                      </div>
-                  </div>
-              </div>
+    <div class="panel"><h5><a href="javascript:void(0)"><%= post.name %></a> 说:</h5></div>
+    <div class="media">
+        <a class="pull-left"><img class="media-object portrait" src="<%= user.portraitSrc %>"></a>
+
+        <div class="media-body">
+            <div class="well">
+                <p><%- post.post %></p>
+                <small><%= post.time.format("yyyy-MM-dd hh:mm") %></small>
+                <div style="text-align:right">
+                    <button type="button" class="btn btn-danger btn-small" onclick="deletePost('<%= post._id %>')">删除
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
     <% }) %>
 </div>
 <div id="deleteDialog" title="删除微博" style="display:none">
-        <p>确认删除该微博吗？</p>
-    </div>
+    <p>确认删除该微博吗？</p>
+</div>
 <div style="text-align:right" index="<%= posts.getIndex() %>" data-src="/post/user/<%= user.name %>?page=" id="pageDiv">
-        <% if(posts.isFirst()){ %>
-            <button class="btn disabled">上一页</button>
+    <% if(posts.isFirst()){ %>
+    <button class="btn disabled">上一页</button>
+    <% }else{ %>
+    <button class="btn" id="previousBtn">上一页</button>
+    <% } %>
+    <div class="btn-group dropup">
+        <% if(posts.getTotalPage() == 1){ %>
+        <button type="button" class="btn btn-default dropdown-toggle disabled" data-toggle="dropdown">
+            第<%= posts.getIndex() %>页 <span class="caret"></span>
+        </button>
         <% }else{ %>
-            <button class="btn" id="previousBtn">上一页</button>
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+            第<%= posts.getIndex() %>页 <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu" id="pageList" size="<%= posts.getTotalPage() %>"></ul>
         <% } %>
-        <div class="btn-group dropup">
-          <% if(posts.getTotalPage() == 1){ %>
-             <button type="button" class="btn btn-default dropdown-toggle disabled" data-toggle="dropdown">
-                      第<%= posts.getIndex() %>页 <span class="caret"></span>
-             </button>
-          <% }else{ %>
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                      第<%= posts.getIndex() %>页 <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" role="menu" id="pageList" size="<%= posts.getTotalPage()%>" ></ul>
-          <% }%>
 
-        </div>
-        <% if(posts.isEnd()){ %>
-           <button class="btn disabled">下一页</button>
-        <% }else{ %>
-           <button class="btn" id="nextBtn">下一页</button>
-        <% } %>
     </div>
+    <% if(posts.isEnd()){ %>
+    <button class="btn disabled">下一页</button>
+    <% }else{ %>
+    <button class="btn" id="nextBtn">下一页</button>
+    <% } %>
+</div>
 <script src="/javascripts/user.js"></script>
 <script src="/javascripts/common.js"></script>
 <%- include footer.ejs %>

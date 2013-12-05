@@ -1,5 +1,4 @@
 function deletePost(postId){
-    console.log(postId);
     $('#deleteDialog').attr('vid',postId).dialog('open');
     return false;
 }

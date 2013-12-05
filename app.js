@@ -17,7 +17,6 @@ var app = express();
 var server = http.createServer(app);
 var io = require('socket.io').listen(server);
 
-//var messageService = require('service/messageService.js');
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -41,10 +40,9 @@ app.use(express.session({
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(app.router);
 
-
+//使用socket-io实现私信
 io.sockets.on('connection', function (socket) {
     socket.on('createMessage', function (message) {
-//        messageService.doMessage(socket,message);
         if(message != null && message.toName != null){
             var name = message.toName;
             socket.broadcast.emit(name + 'Message',message);

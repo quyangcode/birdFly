@@ -1,12 +1,12 @@
 <%- include header.ejs %>
 
 <% messList.forEach(function(mess,index){ %>
-    <div class="media" name="<%= mess.toName %>">
+    <div class="media" name="<%= mess.name %>">
         <div class="pull-left">
             <img class="media-object portrait" src="<%= user.portraitSrc %>" >
         </div>
       <div class="media-body">
-        <h4 class="media-heading"><%= mess.toName %></h4>
+        <h4 class="media-heading"><%= mess.name %></h4>
         <p><%= mess.data %></p>
       </div>
     </div>

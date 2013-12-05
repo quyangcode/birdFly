@@ -111,9 +111,11 @@ module.exports = function(app){
      * 私信
      */
     app.all('/message',Userservice.checkLogin);
-    app.get('/message',MessageService.findNameMessByToName);
+    //私信详情页 对话页
+    app.get('/message',MessageService.findMessDetail);
 
     app.all('/messList',Userservice.checkLogin);
-    app.get('/messList',MessageService.findMessNames);
+    //私信列表页
+    app.get('/messList',MessageService.findMessList);
 };
 

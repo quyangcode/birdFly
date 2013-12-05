@@ -1,13 +1,26 @@
 $(function(){
+    var isOver = {
+        isOver : function(){
+            return this.size() > this.MAX_SIZE;
+        },
+        MAX_SIZE : 140,
+        size : function(){
+            return $('#postArea').val().length;
+        }
+    };
     $('#postArea').on('keyup',function(e){
-        var size = $(this).val().length;
-        var maxSize = 4;
-        if(size > maxSize){
+        if(isOver.isOver()){
             $('#inform').text('已经超过');
-            $('#postNum').text(size - maxSize).addClass('postNum-danger');
+            $('#postNum').text(isOver.size() - isOver.MAX_SIZE).addClass('postNum-danger');
         }else{
             $('#inform').text('还可以输入');
-            $('#postNum').text(maxSize - size).removeClass('postNum-danger');
+            $('#postNum').text(isOver.MAX_SIZE - isOver.size()).removeClass('postNum-danger');
+        }
+    });
+
+    $('#submitPost').on('click',function(){
+        if(!isOver.isOver()){
+            $('#postForm').submit();
         }
     });
 
@@ -31,3 +44,5 @@ $(function(){
         },1000);
     }
 });
+
+

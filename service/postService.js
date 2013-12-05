@@ -5,6 +5,7 @@
 var Post = require('../models/post.js');
 var Comment = require('../models/comment.js');
 var User = require('../models/user.js');
+var Step = require('step');
 
 var PAGE_SIZE_DEFAULT = 6;
 function PostService() {
@@ -43,14 +44,16 @@ PostService.getAllPost = function (req, res) {
         page = 1;
     }
     var currentUser = req.session.user;
-    User.getAllFollowUsers(currentUser.name,function(err,docs){
-        if(err){
-            req.flash('error', err);
-        }
-        docs.friends.push(currentUser.name);
-        Post.pagePost(docs,PAGE_SIZE_DEFAULT,page,function (err2, posts) {
-            if (err2) {
-                console.log(err2);
+    Step(
+        function getAllUsers(){
+            User.getAllFollowUsers(currentUser.name,this);
+        },
+        function getPosts(err,docs){
+            Post.pagePost(docs,PAGE_SIZE_DEFAULT,page,this);
+        },
+        function done(err,posts){
+            if (err) {
+                console.log(err);
             }
             res.render('post', {
                 title: '首页',
@@ -58,8 +61,8 @@ PostService.getAllPost = function (req, res) {
                 user: req.session.user,
                 posts: posts
             });
-        });
-    });
+        }
+    );
 };
 
 /**
@@ -69,14 +72,18 @@ PostService.getAllPost = function (req, res) {
  */
 PostService.insertPost = function (req, res) {
     var currentUser = req.session.user;
-    var post = new Post(currentUser.name, req.body.post, null, 1);
-    post.save(function (err) {
-        if (err) {
-            req.flash('error', err);
-            return res.redirect('/post');
-        }
+    if(req.body.post.length > 140){
         res.redirect('/post');
-    });
+    }else{
+        var post = new Post(currentUser.name, req.body.post, null, 1);
+        post.save(function (err) {
+            if (err) {
+                req.flash('error', err);
+                return res.redirect('/post');
+            }
+            res.redirect('/post');
+        });
+    }
 };
 
 /**
