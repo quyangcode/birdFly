@@ -17,8 +17,8 @@
                      <p><%- post.post %></p>
                      <small><%= post.time.format("yyyy-MM-dd hh:mm") %></small>
                      <div class="text-right">
-                           <a href="post/<%- post._id %>">转发</a>
-                           <a href="post/<%- post._id %>">评论</a>
+                           <a  onclick="showPost('<%- post.post %>','<%= post.name%>')" href="javascript:void(0)" class="transPost">转发</a>
+                           <a  href="post/<%= post._id %>">评论</a>
                      </div>
                 </div>
             </div>
@@ -48,6 +48,9 @@
         <% }else{ %>
            <button class="btn" id="nextBtn">下一页</button>
         <% } %>
+    </div>
+    <div id="transDialog" title="转发微博" style="display:none">
+        <textarea id="postDialog" style="width: 420px" rows="4"></textarea>
     </div>
     <script src="/socket.io/socket.io.js"></script>
     <script src="/javascripts/post.js"></script>

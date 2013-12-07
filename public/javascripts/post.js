@@ -43,6 +43,30 @@ $(function(){
             setTimeout(function(){newMess(message);},1000);
         },1000);
     }
+
+    $('#transDialog').dialog({
+        autoOpen: false,
+        width: 450,
+        height:240,
+        buttons: {
+            "确认": function () {
+                $(this).dialog("close");
+                var url = "/post";
+                var post = {'post':$('#postDialog').val()};
+                $.post(url,post,function(data){
+                });
+            },
+            "取消": function () {
+                $(this).dialog("close");
+            }
+        }
+    });
 });
+
+function showPost(text,author){
+    $('#postDialog').val('@' + author + ':' + text);
+    $('#transDialog').dialog('open');
+    return false;
+};
 
 

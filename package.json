@@ -1,15 +1,22 @@
 {
-  "name": "application-name",
-  "version": "0.0.1",
-  "private": true,
-  "scripts": {
-    "start": "node app.js"
-  },
-  "dependencies": {
-    "express": "3.3.7",
-    "ejs": "*",
-    "mongodb": "*",
-    "connect-mongo": "*",
-    "connect-flash": "*"
-  }
+    "name": "birdFly",
+    "version": "1.0.2",
+    "private": true,
+    "author": "quyangcode",
+    "repository": {
+        "type": "git",
+        "url": "http://github.com/quyangcode/birdFly.git"
+    },
+    "scripts": {
+        "start": "node app.js"
+    },
+    "dependencies": {
+        "express": "3.3.7",
+        "ejs": "*",
+        "mongodb": "*",
+        "connect-mongo": "*",
+        "connect-flash": "*",
+        "socket.io":"*",
+        "step":"*"
+    }
 }
