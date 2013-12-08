@@ -171,8 +171,12 @@ User.getAllFollowUsers = function (name, callback) {
             }
             collection.findOne({name:name},{friends:true,_id:false},function(err,docs){
                 mongodb.close();
+                console.log(1);
+                if(docs.friends == null){
+                    docs.friends = [];
+                }
                 docs.friends.push(name);
-                callback(err,docs);
+                callback(err,docs) ;
             });
         });
     });

@@ -6,6 +6,7 @@ var Post = require('../models/post.js');
 var Comment = require('../models/comment.js');
 var User = require('../models/user.js');
 var Step = require('step');
+var fs = require('fs');
 
 var PAGE_SIZE_DEFAULT = 6;
 function PostService() {
@@ -75,7 +76,7 @@ PostService.insertPost = function (req, res) {
     if(req.body.post.length > 140){
         res.redirect('/post');
     }else{
-        var post = new Post(currentUser.name, req.body.post, null, 1);
+        var post = new Post(currentUser.name, req.body.post, req.files.thumbnail.path, 1);
         post.save(function (err) {
             if (err) {
                 req.flash('error', err);
@@ -162,6 +163,8 @@ PostService.insertComment = function (req, res) {
         return res.redirect('/post/' + req.body.postId);
     });
 };
+
+
 
 
 

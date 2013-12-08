@@ -61,10 +61,44 @@ $(function(){
             }
         }
     });
+
+    $('#uploadBtn').on('click',function(){
+        $('#uploadDialog').dialog('open');
+        $('#hidePost').val($('#postArea').val());
+    });
+
+
+    $('#uploadDialog').dialog({
+        autoOpen: false,
+        width: 350,
+        height:150,
+        buttons: {
+            "确认": function () {
+                $(this).dialog("close");
+                $('#upForm').submit();
+            },
+            "取消": function () {
+                $(this).dialog("close");
+            }
+        }
+    });
+
+    $('#picA').on('click',function(){
+        $('#picDialog').dialog('open');
+        var src = $(this).attr('vid').replace('public','').replace('\\','/');
+        $('#picSrc').attr('src', src);
+    });
+
+    $('#picDialog').dialog({
+        autoOpen: false,
+        width: 200,
+        height:280
+    });
+
 });
 
 function showPost(text,author){
-    $('#postDialog').val('@' + author + ':' + text);
+    $('#postDialog').val('//@' + author + ':' + text);
     $('#transDialog').dialog('open');
     return false;
 };
