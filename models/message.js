@@ -1,20 +1,14 @@
-/**
- * Created with JetBrains WebStorm.
- * User: quyang
- * Date: 13-11-2
- * Time: 上午10:30
- * To change this template use File | Settings | File Templates.
- */
+
 var mongodb = require('./db');
 var ObjectID = require("mongodb").ObjectID;
-var PageList = require('./pageList');
 
 
 
-function Message(name,data,toName) {
+function Message(name,data,toName,type) {
     this.name = name;
     this.data = data;
     this.toName = toName;
+    this.type = type;
 }
 
 function Message(mess){
@@ -23,6 +17,7 @@ function Message(mess){
     this.date = new Date();
     this.status = 1;
     this.toName = mess.toName;
+    this.type = mess.type;
 }
 
 module.exports = Message;

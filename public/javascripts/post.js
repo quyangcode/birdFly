@@ -83,9 +83,9 @@ $(function(){
         }
     });
 
-    $('#picA').on('click',function(){
+    $('.picA').on('click',function(){
         $('#picDialog').dialog('open');
-        var src = $(this).attr('vid').replace('public','').replace('\\','/');
+        var src = $(this).attr('vid').replace('public','');
         $('#picSrc').attr('src', src);
     });
 

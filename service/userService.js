@@ -5,6 +5,7 @@
 
 var crypto = require('crypto');
 var User = require('../models/user.js');
+var Step = require('step');
 
 var PAGE_SIZE_DEFAULT = 6;
 
@@ -66,28 +67,33 @@ UserService.register = function(req,res){
  */
 UserService.modifyInformation = function(req,res){
     var user = new User({
-            name:req.session.user.name,
-            location:req.body.location,
-            introduction:req.body.introduction
-        });
-    user.modifyInformation(function(err,docs){
-        if(err){
-            console.log(err);
-            req.flash('error2modify','修改失败!');
-        }else{
-            req.flash('success2modify','修改成功!');
-        }
-        User.get(user.name, function (err, user) {
-            if (err) {
-                user = null;
-            }
-            req.session.user = user;
-            res.redirect('/user/modify');
-        });
-
+        name: req.session.user.name,
+        location: req.body.location,
+        introduction: req.body.introduction,
+        portraitSrc: req.files.portraitSrc.path
     });
-
-
+    Step(
+        function modify(){
+            user.modifyInformation(this);
+        },
+        function getUser(err){
+            if(err){
+                req.flash('error2modify','修改失败!');
+            }else{
+                req.flash('success2modify','修改成功!');
+            }
+            User.get(user.name,this);
+        },
+        function done(err,user){
+            if (err) {
+                console.error('查找用户失败' + err);
+            }else{
+                user.portraitSrc = user.portraitSrc.replace('public','');
+                req.session.user = user;
+            }
+            res.redirect('/user/modify');
+        }
+    );
 };
 
 /**

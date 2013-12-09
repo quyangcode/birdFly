@@ -1,10 +1,3 @@
-/**
- * Created with JetBrains WebStorm.
- * User: quyang
- * Date: 13-11-2
- * Time: 上午10:37
- * To change this template use File | Settings | File Templates.
- */
 var Message = require('../models/message.js');
 var async = require('async');
 

@@ -1,6 +1,6 @@
 <% include header.ejs %>
 <div class="container-fluid">
-    <form class="form-horizontal" method="post">
+    <form class="form-horizontal" method="post" enctype="multipart/form-data">
         <fieldset>
             <legend>修改个人信息</legend>
             <% if (error) { %>
@@ -34,7 +34,14 @@
             <div class="control-group">
                 <label class="control-label" for="introduction">简介</label>
                 <div class="controls">
-                    <textarea rows="4" style="width:270px;"  id="introduction" name="introduction" ><% if(user.introduction){ %> <%= user.introduction %> <% }else{ %>暂无简介，补充简介，让大家认识你吧...<% } %></textarea>
+                    <textarea rows="4" style="width:270px;"  id="introduction" name="introduction" ><% if(user.introduction){ %><%= user.introduction %><% }else{%>暂无简介，补充简介，让大家认识你吧...<% } %></textarea>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="pic">头像</label>
+                <div class="controls">
+                    <img  width="150"  id="pic"  src="<%= user.portraitSrc %>"><br/>
+                    <input name="portraitSrc" type="file">
                 </div>
             </div>
             <div class="form-actions">

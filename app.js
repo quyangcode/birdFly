@@ -25,7 +25,11 @@ app.set('view engine', 'ejs');
 app.use(flash());
 app.use(express.favicon(__dirname + '/public/images/favicon.ico'));
 app.use(express.logger('dev'));
-app.use(express.bodyParser({keepExtensions: true,uploadDir:'./public/images/upload'}));
+app.use(express.bodyParser({
+    keepExtensions: true,
+    uploadDir: './public/images/upload',
+    limit: '1mb'
+}));
 app.use(express.methodOverride());
 app.use(express.cookieParser());
 app.use(express.session({
@@ -39,6 +43,7 @@ app.use(express.session({
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(app.router);
+
 
 //使用socket-io实现私信
 io.sockets.on('connection', function (socket) {

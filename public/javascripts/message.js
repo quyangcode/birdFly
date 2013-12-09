@@ -1,11 +1,3 @@
-/**
- * Created with JetBrains WebStorm.
- * User: quyang
- * Date: 13-11-2
- * Time: 上午10:46
- * To change this template use File | Settings | File Templates.
- */
-
 $(function(){
     var socket = io.connect('http://localhost:3000');
     var onName = $('#messLi').attr('name');

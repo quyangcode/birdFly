@@ -272,7 +272,7 @@ User.prototype.modifyInformation = function(callback){
                 mongodb.close();
                 return callback(err);
             }
-            collection.update({name:user.name},{$set:{location:user.location,introduction:user.introduction}},function(err,docs){
+            collection.update({name:user.name},{$set:{location:user.location,introduction:user.introduction,portraitSrc:user.portraitSrc}},function(err,docs){
                 mongodb.close();
                 callback(err,docs);
             });

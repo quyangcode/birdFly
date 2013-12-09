@@ -18,7 +18,7 @@
                      <small><%= post.time.format("yyyy-MM-dd hh:mm") %></small>
                      <div class="text-right">
                          <% if(post.srcPicture != null){ %>
-                            <a  href="javascript:void(0)" vid="<%= post.srcPicture %>" id="picA">查看图片</a>
+                            <a  href="javascript:void(0)" vid="<%= post.srcPicture %>" class="picA">查看图片</a>
                          <% } %>
                            <a  href="javascript:showPost('<%- post.post %>','<%= post.name%>');" class="transPost">转发</a>
                            <a  href="post/<%= post._id %>">评论</a>
