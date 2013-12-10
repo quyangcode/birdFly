@@ -149,6 +149,7 @@ UserService.login = function(req, res){
             req.flash('error', '用户名密码错误!');
             return res.redirect('/login');
         }
+        user.portraitSrc = user.portraitSrc.replace('public','');
         //用户名密码都匹配后，将用户信息存入 session
         req.session.user = user;
         req.flash('success','登陆成功!');
