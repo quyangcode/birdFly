@@ -1,7 +1,7 @@
 {
     "name": "birdFly",
     "version": "1.0.2",
-    "private": true,
+    "private": false,
     "author": "quyangcode",
     "repository": {
         "type": "git",
